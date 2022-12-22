@@ -5,19 +5,13 @@ defimpl Inspect, for: OpenApiSpex.Schema do
   #   concat(["OpenApiSpex.Schema.new(", Inspect.Map.inspect(parameter, opts), ")"])
   # end
 
-  def inspect(parameter, opts) do
-    map =
-      parameter
-      |> Map.from_struct()
-      |> Enum.filter(fn
-        {_key, nil} -> false
-        {_key, _value} -> true
-      end)
-      |> Map.new()
-      |> to_doc(opts)
-      |> String.replace(~r/%/, "")
-
-
-    concat(["%OpenApiSpex.Schema", map])
+  def inspect(schema, opts) do
+    concat([
+      "OpenApiSpex.Schema.new(",
+      inspect(schema.__struct__),
+      ", ",
+      Inspect.Map.inspect(schema, opts),
+      ")"
+    ])
   end
 end
