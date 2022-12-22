@@ -14,7 +14,9 @@ defimpl Inspect, for: OpenApiSpex.Schema do
         {_key, _value} -> true
       end)
       |> Map.new()
+      |> to_doc(opts)
 
-    concat(["%OpenApiSpex.Schema", String.replace(to_doc(map, opts), ~r/%/, "")])
+
+    concat(["%OpenApiSpex.Schema", String.replace(map, ~r/%/, "")])
   end
 end
