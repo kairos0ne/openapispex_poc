@@ -1,6 +1,10 @@
 defimpl Inspect, for: OpenApiSpex.Schema do
   import Inspect.Algebra
 
+  # def inspect(parameter, opts) do
+  #   concat(["OpenApiSpex.Schema.new(", Inspect.Map.inspect(parameter, opts), ")"])
+  # end
+
   def inspect(parameter, opts) do
     map =
       parameter
@@ -11,6 +15,6 @@ defimpl Inspect, for: OpenApiSpex.Schema do
       end)
       |> Map.new()
 
-    concat(["%OpenApiSpex.Schema", to_doc(map, opts)])
+    concat(["%OpenApiSpex.Schema", String.replace(to_doc(map, opts), ~r/%/, "")])
   end
 end
